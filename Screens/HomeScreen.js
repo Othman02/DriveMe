@@ -1,8 +1,9 @@
-import {jText, View ,SafeAreaView ,Image} from 'react-native'
+import {Text, View ,SafeAreaView ,Image} from 'react-native'
 import React from 'react'
 import tw from 'twrnc';
 import NavOptions from '../components/NavOptions';
-
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { GOOGLE_MAPS_APIKEY } from "@env";
 
 const HomeScreen = () => {
   return (
@@ -20,6 +21,13 @@ const HomeScreen = () => {
                 require('./logo_driveme01.png')
              }
             />
+
+             <GooglePlacesAutocomplete
+             placeholder="Where From?"
+             nearbyPlacesAPI="GooglePlacesSearch"
+             debounce ={400}
+             />
+
             <NavOptions/>
         </View>
     </SafeAreaView>
