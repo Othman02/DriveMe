@@ -3,18 +3,27 @@ import React from 'react'
 import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native';
 import { Icon } from '@rneui/base';
+import { useSelector } from 'react-redux';
+import { selectOrigin } from '../slices/navSlice';
 
 const data =[
     {
         id:"123",
         title:"Get a ride",
-        image:"https://links.papareact.com/3pn",
+        image:"https://cdn-icons-png.flaticon.com/512/709/709579.png",
         screen:"MapScreen",
+    },
+    {
+        id:"456",
+        title:"Become a Driver",
+        image:"https://cdn-icons-png.flaticon.com/512/6666/6666847.png",
+        screen:"DriverScreen",
     }
 ]
 
 const NavOptions = () => {
     const navigation = useNavigation();
+    const origin = useSelector(selectOrigin);
   return (
     <FlatList
     data={data}
@@ -23,20 +32,23 @@ const NavOptions = () => {
     renderItem={({item})=> (
         <TouchableOpacity 
          onPress={() => navigation.navigate(item.screen) }
-         style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}>
-            <View>
+         style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}
+         disabled={!origin}
+         >
+            <View style={tw `${!origin && "opacity-20"}`} >
                 <Image
                 style = {{width: 120 , height:120 , resizeMode:"contain"}}
                 source={{uri:item.image}}
                 />
-            </View>
-            <Text style={tw`mt-2 text-lg font-semibold`}>{item.title}</Text>
+                <Text style={tw`mt-2 text-lg font-semibold`}>{item.title}</Text>
             <Icon
                 color="white"
                 name='arrowright'
                 type="antdesign"
                 style={tw`p-2 bg-black rounded-full w-10 mt-4`}
             />
+            </View>
+            
             
         </TouchableOpacity>
     )} 
